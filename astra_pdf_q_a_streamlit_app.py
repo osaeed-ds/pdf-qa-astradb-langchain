@@ -21,11 +21,8 @@ def create_datastax_connection():
 
     cloud_config= {'secure_connect_bundle': 'secure-connect-osaeed-vector.zip'}
 
-    with open("osaeed-dbadmin.json") as f:
-        secrets = json.load(f)
-
-    CLIENT_ID = secrets["clientId"]
-    CLIENT_SECRET = secrets["secret"]
+    CLIENT_ID = "token"
+    CLIENT_SECRET = st.secrets["astra_token"]
 
     auth_provider = PlainTextAuthProvider(CLIENT_ID, CLIENT_SECRET)
     cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
