@@ -53,7 +53,7 @@ def main():
 
     session = create_datastax_connection()
 
-    os.environ['OPENAI_API_KEY'] = "Add your OpenAI Serial Key Here"
+    os.environ['OPENAI_API_KEY'] = st.secrets["openai_key"]
     llm = OpenAI(temperature=0)
     openai_embeddings = OpenAIEmbeddings()
     table_name = 'pdf_q_n_a_table_1'
