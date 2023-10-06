@@ -19,9 +19,9 @@ from tempfile import NamedTemporaryFile
 @st.cache_resource
 def create_datastax_connection():
 
-    cloud_config= {'secure_connect_bundle': 'secure-connect-bhavesh-astra-test.zip'}
+    cloud_config= {'secure_connect_bundle': 'secure-connect-osaeed-vector.zip'}
 
-    with open("bhavesh_astra_test-token.json") as f:
+    with open("osaeed-dbadmin.json") as f:
         secrets = json.load(f)
 
     CLIENT_ID = secrets["clientId"]
