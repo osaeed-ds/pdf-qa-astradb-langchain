@@ -11,6 +11,8 @@ from langchain.text_splitter import (
 )
 from langchain.docstore.document import Document
 from langchain.document_loaders import TextLoader, PyPDFLoader
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from copy import deepcopy
@@ -93,15 +95,18 @@ def main():
             st.session_state.messages.append({"role": "user", 
                                               "avatar" :'👨🏻',
                                               "content": prompt})
-
-            index_placeholder = st.session_state.pdf_index
-            pdf_response = index_placeholder.query_with_sources(prompt, llm = llm)
-            cleaned_response = pdf_response["answer"]
+            if "pdf_index" not in st.session_state:
+                llm_chain = LLMChain(prompt=prompt, llm=llm)
+                cleaned_response=llm_chain.run()
+            else:
+                index_placeholder = st.session_state.pdf_index
+                pdf_response = index_placeholder.query_with_sources(prompt, llm = llm)
+                cleaned_response = pdf_response["answer"]
             with st.chat_message("assistant", avatar='🤖'):
-                st.markdown(cleaned_response)
+            st.markdown(cleaned_response)
             st.session_state.messages.append({"role": "assistant", 
-                                              "avatar" :'🤖',
-                                              "content": cleaned_response})
+                                                  "avatar" :'🤖',
+                                                  "content": cleaned_response})
         else:
             st.markdown(
                 'Upload your PDFs to chat'
