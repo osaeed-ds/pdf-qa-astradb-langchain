@@ -103,7 +103,7 @@ def main():
                 pdf_response = index_placeholder.query_with_sources(prompt, llm = llm)
                 cleaned_response = pdf_response["answer"]
             with st.chat_message("assistant", avatar='🤖'):
-            st.markdown(cleaned_response)
+                st.markdown(cleaned_response)
             st.session_state.messages.append({"role": "assistant", 
                                                   "avatar" :'🤖',
                                                   "content": cleaned_response})
