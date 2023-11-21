@@ -67,7 +67,7 @@ def main():
             'keyspace': keyspace,
             'table_name': table_name}
         )
-    
+    st.session_state.activate_chat = True
     with st.sidebar:
         st.subheader('Upload Your PDF File')
         docs = st.file_uploader('⬆️ Upload your PDF & Click to process',
