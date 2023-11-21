@@ -96,8 +96,11 @@ def main():
                                               "avatar" :'👨🏻',
                                               "content": prompt})
             if "pdf_index" not in st.session_state:
-                llm_chain = LLMChain(prompt=prompt, llm=llm)
-                cleaned_response=llm_chain.run()
+                template = """Question: {question}
+                Answer: Let's think step by step."""
+                prompt2 = PromptTemplate(template=template, input_variables=["question"])
+                llm_chain = LLMChain(prompt=prompt2, llm=llm)
+                cleaned_response=llm_chain.run(prompt)
             else:
                 index_placeholder = st.session_state.pdf_index
                 pdf_response = index_placeholder.query_with_sources(prompt, llm = llm)
